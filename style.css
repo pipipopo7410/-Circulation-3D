@@ -1,0 +1,66 @@
+:root{--ink:#15334a;--soft:#647a8c;--edge:#d3e4ec;--teal:#147b87;--bg:#f1f7fb;--pane:#ffffffeb}
+*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none;touch-action:none;font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--bg)}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #59bbcb;outline-offset:2px}
+.app{height:100dvh;min-height:0;width:100vw;overflow:hidden;display:flex;position:relative}.scene{position:relative;flex:1;min-height:0;min-width:0;overflow:hidden;background:radial-gradient(ellipse at 49% 30%,#fff 0%,#e7f2f8 74%,#d7e8f0 100%)}.view{position:absolute;inset:0;touch-action:none}.view canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.view canvas:active{cursor:grabbing}
+.sceneTop{position:absolute;left:18px;top:14px;right:18px;z-index:6;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.brand{pointer-events:auto;display:flex;align-items:center;gap:10px;font-weight:850;font-size:17px;color:#194761;text-shadow:0 1px #fff}.brand span small{display:block;font-size:11px;font-weight:650;color:#668297;margin-top:2px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;background:#1b8191;color:#fff;border-radius:12px}.round{pointer-events:auto;background:#ffffffea;color:#236c81;font-weight:850;border:1px solid var(--edge);border-radius:13px;width:43px;height:43px;font-size:25px;box-shadow:0 3px 16px #365a761c}
+.sceneFoot{pointer-events:none;position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:11px;color:#4b6d80}.sceneFoot span{background:#ffffffd9;padding:7px 11px;border:1px solid #dbe6ec;border-radius:13px}.sceneFoot span:last-child{white-space:nowrap}
+.dock{order:-1;flex:none;z-index:4;position:relative;display:flex;flex-direction:column;gap:9px;padding:18px 13px;background:#ffffffdd;border-right:1px solid var(--edge);width:218px;overflow:hidden}.dockTitle{font-weight:800;font-size:13px;color:#225c73;margin:6px 0 12px;padding:0 5px}.dockHint{display:block;color:#8497a7;font-size:10px;font-weight:600;margin-top:4px}.mainbtn{min-height:77px;background:#f9fcfe;border:1px solid #d8e5ec;border-radius:15px;display:flex;align-items:center;gap:11px;text-align:left;padding:11px 13px;color:#153f58;font-size:15px;font-weight:800;box-shadow:0 5px 14px #284d6b0a}.mainbtn small{display:block;margin-top:4px;font-size:11px;color:#6d8999;font-weight:600}.mainbtn:active{background:#dbedf4}.btnIcon{width:31px;height:31px;flex:none;display:grid;place-items:center;color:#18788d;background:#e5f3f8;border-radius:10px;font-size:22px}
+.routePanel{margin-top:7px;overflow-y:auto;overscroll-behavior:contain;background:#f1f8fb;padding:10px;border:1px solid #cfe2e9;border-radius:15px;min-height:0}.panelTitle{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-bottom:12px;font-size:13px}.panelTitle button{border:0;background:#e7f0f4;color:#33536a;border-radius:10px;width:30px;height:30px}.routeGrid{display:grid;grid-template-columns:1fr;gap:7px}.routeGrid label{font-size:10px;font-weight:750;color:#6b8393}.routeGrid select{margin-top:3px;width:100%;min-width:0;background:white;border-radius:8px;padding:9px 5px;border:1px solid var(--edge);font-size:11px}.action{margin-top:9px;width:100%;background:#147c8e;color:#fff;border:0;padding:11px;border-radius:10px;font-weight:800}.routeResult{padding:8px 5px;color:#536e80;font-size:11px;line-height:1.4;overflow-wrap:anywhere}.limitation{font-size:10px;color:#8b6f61;line-height:1.5}.player{display:flex;align-items:center;justify-content:space-between;gap:4px}.player button{width:43px;height:33px;background:#e0eff5;border:0;border-radius:8px}.player span{font-size:11px}
+.shade{position:absolute;inset:0;background:#192f3c60;z-index:8}.tools{position:absolute;z-index:9;left:218px;top:0;bottom:0;width:min(335px,calc(100vw - 218px));padding:18px 16px;background:#fffffff7;box-shadow:10px 0 35px #1b45532c;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}.tools[hidden],.shade[hidden],.routePanel[hidden],.player[hidden],.loading[hidden],.toast[hidden],.infoTag[hidden]{display:none}.tools .panelTitle{font-size:17px;margin-bottom:12px}.toolLine{border-top:1px solid #e4eef2;padding:14px 0 12px;font-size:12px;color:#527286}.toolLine>span{font-weight:750;display:block;margin-bottom:8px}.chips{display:flex;gap:5px;flex-wrap:wrap}.chips button{font-size:12px;border:1px solid #d4e3eb;background:#f2f8fc;border-radius:10px;padding:9px 11px;color:#315f74}.chips button.active{background:#147b87;color:white;border-color:#147b87}.toolLine input{width:100%;min-width:0;padding:9px 10px;border:1px solid #cadce4;border-radius:10px;background:#fff}.searchList{max-height:120px;overflow-y:auto;touch-action:pan-y}.searchList button{display:block;width:100%;text-align:left;padding:7px;font-size:11px;border:0;border-bottom:1px solid #e6eef2;background:#fff;color:#42647b}.diagnostics{font-size:11px;line-height:1.6;color:#537284}.toolsNote{font-size:11px;color:#8a6a5d;line-height:1.55}.legacy{display:block;border-radius:11px;border:1px solid #dae8ee;padding:11px;color:#21768d;font-size:12px;text-decoration:none;font-weight:750}
+.loading{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);width:min(315px,80%);text-align:center;background:#ffffffef;border:1px solid #dce9ed;border-radius:22px;padding:22px;box-shadow:0 18px 44px #254d6520}.loadingIcon{font-size:42px;color:#308b9c;margin-bottom:6px}.loading strong{display:block;font-size:16px}.loading #loadingDetail{font-size:12px;line-height:1.7;margin-top:9px;color:#658499}.loadingBar{height:7px;background:#e5eff4;border-radius:8px;margin-top:14px;overflow:hidden}.loadingFill{width:0;height:100%;background:#2b98a4;transition:width .25s}.loading button{border:0;background:#147b87;color:white;border-radius:8px;padding:10px;margin-top:13px}.infoTag{position:absolute;z-index:5;top:72px;left:50%;transform:translateX(-50%);text-align:center;background:#fffffff5;border:1px solid #d4e4eb;border-radius:13px;padding:10px 17px;font-weight:750;font-size:12px;max-width:85%;overflow-wrap:anywhere;box-shadow:0 6px 20px #23465920}.toast{position:absolute;z-index:6;left:50%;bottom:54px;transform:translateX(-50%);background:#193c50ed;color:white;border-radius:13px;font-size:12px;padding:9px 15px;white-space:nowrap}
+@media(orientation:portrait){.app{flex-direction:column}.dock{order:0;width:100%;height:auto;min-height:122px;max-height:48%;padding:10px 10px calc(10px + env(safe-area-inset-bottom));border:0;border-top:1px solid var(--edge);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.dockTitle{display:none}.mainbtn{min-width:0;min-height:66px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center;padding:6px 2px;text-align:center;font-size:12px}.btnIcon{width:auto;height:auto;background:transparent;font-size:22px}.mainbtn small{font-size:9px;margin-top:2px}.scene{flex:1}.routePanel{grid-column:span 3;max-height:21dvh;padding:9px;margin:0}.routeGrid{grid-template-columns:1fr 1fr}.routeGrid label select{font-size:10px}.limitation{display:none}.tools{left:0;top:auto;bottom:0;width:100%;max-height:min(70dvh,570px);border-radius:20px 20px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom))}.sceneFoot{bottom:8px}.dock .dockHint{display:none}}
+@media(max-height:500px) and (orientation:landscape){.dock{width:172px;padding:6px;gap:4px}.dockTitle{margin:0;font-size:11px}.dockHint{display:none}.mainbtn{min-height:52px;padding:5px;font-size:12px}.mainbtn small{font-size:10px;margin-top:0}.routePanel{font-size:10px;padding:7px}.limitation{display:none}.tools{left:172px}.brand{font-size:14px}.sceneTop{top:6px}}
+@media(max-width:430px) and (orientation:portrait){.sceneTop{top:5px;left:8px;right:8px}.brand{font-size:14px}.sceneFoot{left:8px;right:8px}.sceneFoot span{padding:4px 6px;font-size:10px}.dock{min-height:100px}.mainbtn{min-height:56px}.routePanel{max-height:28dvh}}
+
+.loadingHelp{display:block;margin-top:10px;font-size:12px;font-weight:700;color:#166b85;text-decoration:underline}.loading button[hidden]{display:none}
+
+/* V0.30 centerline demonstrations live INSIDE the existing path panel; 3 main buttons unchanged. */
+.verifiedRow{margin:8px 0 2px;border-top:1px solid #d9e5ec;padding-top:7px}.verifiedRow>label{display:block;margin-bottom:4px;font-weight:750;font-size:10px;color:#547286}.verifiedPick{display:flex;gap:5px;min-width:0}.verifiedPick select{flex:1;min-width:0;font-size:11px;border:1px solid #c9dce5;border-radius:8px;background:white;color:#294d61;padding:7px 3px}.verifiedPick button{flex:0 0 auto;border:0;background:#e0ae40;color:#332509;border-radius:8px;padding:7px 9px;font-size:11px;font-weight:850}.player button[hidden]{display:none}
+@media(orientation:portrait){.verifiedRow{margin:5px 0 0;padding-top:5px}.verifiedRow>label{display:none}.verifiedPick button{padding:6px 8px}.verifiedPick select{font-size:10px}}
+
+.routeAssist{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#f4f8fb;border:1px solid #d7e6f0;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:14px;color:#35505d;}
+.routeAssist span{line-height:1.45;flex:1;}
+.action.secondary{background:#eef5fb;color:#295e80;border:1px solid #b8d3e5;}
+.action.secondary:hover{filter:brightness(.98);}
+@media (max-width: 900px){.routeAssist{flex-direction:column;align-items:stretch;}}
+
+/* V0.36: protect the actual hidden state from display:flex author rules. */
+.routeAssist[hidden]{display:none!important}
+.routeAssist{font-size:12px;line-height:1.45;gap:8px}
+.routeAssist .action{margin-top:0;width:auto;min-width:80px;flex:0 0 auto;padding:8px 10px}
+@media(orientation:portrait){.routeAssist{font-size:11px;padding:8px}.routeAssist .action{width:100%}}
+
+/* V0.38 — one minimal live location cue; no extra student controls. */
+.lessonCue{pointer-events:none;position:absolute;z-index:5;top:76px;left:18px;max-width:min(300px,65%);border:1px solid #cfdee7;background:#ffffffed;border-radius:12px;padding:8px 11px;box-shadow:0 6px 20px #23465913;color:#1e465c;line-height:1.3;}
+.lessonCue[hidden]{display:none!important;}
+.lessonCue strong{display:block;font-size:14px;font-weight:850;}
+.lessonCue small{display:block;font-size:11px;color:#456b7b;margin-top:3px;font-weight:650;}
+@media (max-width:430px) and (orientation:portrait){.lessonCue{left:9px;top:61px;max-width:60%;padding:6px 8px}.lessonCue strong{font-size:12px}.lessonCue small{font-size:10px}}
+
+/* V0.41 — single compact organ-visibility control, without changing three main buttons. */
+.sceneActions{pointer-events:auto;display:flex;align-items:center;gap:7px}
+.organToggle{min-height:43px;padding:8px 12px;border:1px solid #c7dae4;border-radius:13px;box-shadow:0 3px 16px #365a761c;background:#ffffffed;color:#2b6176;font-weight:800;font-size:12px;white-space:nowrap}
+.organToggle:focus-visible{outline:3px solid #59bbcb;outline-offset:2px}
+@media(max-width:430px) and (orientation:portrait){.organToggle{min-height:38px;padding:7px 8px;font-size:11px}.sceneActions{gap:5px}.round{width:38px;height:38px}}
+@media (max-width:430px) and (orientation:portrait){
+ .brand span small{display:none}
+ .sceneTop{gap:5px}
+ .brand{gap:6px;font-size:13px}
+ .brand-mark{width:30px;height:30px}
+ .organToggle{padding:6px;font-size:10px;min-height:38px}
+}
+
+/* V0.43 — three small organ anchors, automatically hidden outside thoracic
+   teaching/close-up. No clicks and no extra navigation controls. */
+.organLabels{pointer-events:none;position:absolute;inset:0;z-index:4;overflow:hidden}
+.organLabels[hidden]{display:none!important}
+.organLabel{position:absolute;display:block;transform:translate(-50%,-50%);font-size:11px;font-weight:800;letter-spacing:.02em;color:#77425a;background:#fff9fbe8;border:1px solid #dcaab8;padding:4px 7px;border-radius:9px;box-shadow:0 2px 8px #263b4420;white-space:nowrap}
+.organLabel[hidden]{display:none!important}
+.organLabelHeart{color:#8b2f4d;border-color:#c57e91;background:#fff1f5ed}
+@media(max-width:430px){.organLabel{font-size:10px;padding:3px 6px}}
+
+/* V0.44 — teacher-accessible disclosure, no permanent long paragraph in a lesson. */
+.modelNotes{font-size:10px;color:#6f8190;border-top:1px solid #dae6eb;margin-top:4px;padding-top:5px;}
+.modelNotes summary{cursor:pointer;touch-action:manipulation;padding:7px 3px;font-weight:700;}
+.modelNotes[open] .limitation{margin:5px 0 9px;line-height:1.6;}
+.organLabel.isActive{color:#80273d;background:#fff0f4f7;border-color:#bb6983;box-shadow:0 2px 10px #8b304333;}
+@media (max-width:430px) and (orientation:portrait){.organLabel.isActive{font-size:10px;}}

@@ -1,0 +1,49 @@
+{
+  "project": "blood-circulation-3d",
+  "build": "V0.37",
+  "threeVersion": "0.160.1",
+  "source": "npm registry",
+  "sourceTarballSha256": null,
+  "files": {
+    "vendor/three/LICENSE": {
+      "bytes": 1081,
+      "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d"
+    },
+    "vendor/three/build/three.module.js": {
+      "bytes": 1272972,
+      "sha256": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
+    },
+    "vendor/three/examples/jsm/controls/OrbitControls.js": {
+      "bytes": 30973,
+      "sha256": "7aa4372a5ec60b49988edde81014c7361740a57962d032003ca33301c1f4edd5"
+    },
+    "vendor/three/examples/jsm/libs/draco/README.md": {
+      "bytes": 1501,
+      "sha256": "8b0bff6aa9c9115318d4c91206d379d4421c0d112526df6e6da9ab4c480e4645"
+    },
+    "vendor/three/examples/jsm/libs/draco/draco_decoder.js": {
+      "bytes": 719410,
+      "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+    },
+    "vendor/three/examples/jsm/libs/draco/draco_decoder.wasm": {
+      "bytes": 285747,
+      "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+    },
+    "vendor/three/examples/jsm/libs/draco/draco_wasm_wrapper.js": {
+      "bytes": 58763,
+      "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+    },
+    "vendor/three/examples/jsm/loaders/DRACOLoader.js": {
+      "bytes": 13628,
+      "sha256": "65c114ecb7b349cdc59c75b2c92d19cca672a138060dba0f60f64262fa40408c"
+    },
+    "vendor/three/examples/jsm/loaders/GLTFLoader.js": {
+      "bytes": 108522,
+      "sha256": "d073b438e6a07e1359741dd5d6c76c953420cc0d4fd84eb1bdde94315540e6a3"
+    },
+    "vendor/three/examples/jsm/utils/BufferGeometryUtils.js": {
+      "bytes": 31906,
+      "sha256": "9be041e96308775d00e2695cc607645b9a9b64fd7c0e759dd8f7c00a8d92becb"
+    }
+  }
+}
