@@ -1,12 +1,28 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型環境檢測 V0.37</title><script src='./vendor-config.js'></script><style>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型環境檢測 V0.57</title><script src='./vendor-config.js'></script><style>
 *{box-sizing:border-box}body{margin:0;min-height:100dvh;background:#f4f8fb;font-family:system-ui,-apple-system,sans-serif;color:#244459;padding:18px}main{max-width:760px;margin:auto}h1{font-size:22px}p{line-height:1.65}section{background:white;border:1px solid #dce7ed;border-radius:16px;padding:16px;margin:10px 0}.pass{color:#18734a}.fail{color:#b33a32}.pending{color:#5d7688}label{display:block;font-weight:750}small{font-size:13px}button,a{display:inline-block;border-radius:10px;background:#186f84;color:white;text-decoration:none;border:0;padding:12px 18px;font-size:15px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;color:#5f7383}#results section{min-height:65px}code{font-size:12px}button{cursor:pointer}
-</style></head><body><main><h1>3D 血管模型｜環境檢測</h1><p>這是開發驗收工具，不是學生教學畫面。它可以確認檔案與解碼器能否在你的瀏覽器載入。<strong>通過不等於已完成 30 台 iPad 的負載測試。</strong></p><a href="./index.html">返回 3D 網站</a><button id="run">重新檢測</button><div id="results"></div><p>檢測結果不會上傳到任何伺服器；需要協助時，可以截圖這個畫面。</p></main><script type="module">
+</style></head><body><main><h1>3D 血管模型｜環境檢測</h1><p>這是開發驗收工具，不是學生教學畫面。它可以確認檔案與解碼器能否在你的瀏覽器載入。<strong>通過不等於已完成 30 台 iPad 的負載測試。</strong></p><a href="./index.html">返回 3D 網站</a><button id="run">重新檢測</button> <a href="./release-check.html">檢查完整發布包</a><div id="results"></div><p>檢測結果不會上傳到任何伺服器；需要協助時，可以截圖這個畫面。</p></main><script type="module">
 const results=document.querySelector('#results');
 function item(name,state,message){const e=document.createElement('section');const h=document.createElement('label');h.textContent=name;const p=document.createElement('small');p.textContent=message;p.className=state; e.append(h,p);results.append(e);return {update(s,m){p.className=s;p.textContent=m}}}
 const spec=await (await fetch('./models/model-audit.json')).json().catch(()=>null);
 async function check(){results.replaceChildren();
  const secure=item('HTTPS 或本機伺服器','pending','');secure.update(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'?'pass':'fail',location.protocol+' / '+location.hostname);
  const gpu=item('WebGL 2 環境','pending','檢查中');let gl;try{const canvas=document.createElement('canvas');gl=canvas.getContext('webgl2',{failIfMajorPerformanceCaveat:false});gpu.update(gl?'pass':'fail',gl?'WebGL 2 可初始化':'這個瀏覽器目前無法初始化 WebGL 2');}catch(e){gpu.update('fail',e.message)}
+ const release=item('目前發布版本','pending','讀取 asset-manifest.json');let releaseOk=false;
+ try{const r=await fetch('./asset-manifest.json',{cache:'no-store'});
+  if(!r.ok)throw Error('HTTP '+r.status);const m=await r.json();releaseOk=m.version==='V0.57';
+  release.update(releaseOk?'pass':'fail',`目前 ${m.version||'無版本'}；預期 V0.57`);
+ }catch(e){release.update('fail','版本資訊讀取失敗：'+String(e.message||e))}
+ const index=item('有向路網中心線資料','pending','檢查 30 組模型血管路徑');let indexOk=false;
+ try{const r=await fetch('./models/mesh-centerlines-v054.json',{cache:'no-store'});
+  if(!r.ok)throw Error('HTTP '+r.status);const m=await r.json();indexOk=m.schemaVersion==='V0.54'&&Object.keys(m.routes||{}).length===30;
+  index.update(indexOk?'pass':'fail',`${m.schemaVersion||'未知版本'} · ${Object.keys(m.routes||{}).length} 組模型中心線`);
+ }catch(e){index.update('fail','無法讀取新路網資料：'+String(e.message||e))}
+ const pulmIndex=item('V0.55 肺內血管中心線','pending','檢查右肺三條具名模型路徑');let pulmOk=false;
+ try{const r=await fetch('./models/pulmonary-mesh-centerlines-v055.json',{cache:'no-store'});
+  if(!r.ok)throw Error('HTTP '+r.status);const m=await r.json();
+  pulmOk=m.schemaVersion==='V0.55'&&Object.keys(m.routes||{}).length===3;
+  pulmIndex.update(pulmOk?'pass':'fail',`${m.schemaVersion||'未知版本'} · ${Object.keys(m.routes||{}).length} 條肺內血管`);
+ }catch(e){pulmIndex.update('fail','新肺內路徑無法讀取：'+String(e.message||e))}
  let okFiles=0;
  const staged=[
  ['arteries-core-only',33],['veins-core-only',35],
@@ -26,6 +42,13 @@ async function check(){results.replaceChildren();
    row.update('pass',expected+' 個構造，'+Math.round(buf.byteLength/1024)+' KB');okFiles++;
   }catch(e){row.update('fail',String(e.message||e));}
  }
+
+ const shell=item('三維半透明人體外殼','pending','正在檢查立體模型');
+ try {const r=await fetch('./models/human-body-context.glb',{cache:'no-store'});
+ if(!r.ok)throw Error('HTTP '+r.status);const b=await r.arrayBuffer();const v=new DataView(b);
+ if(v.getUint32(0,true)!==0x46546c67||v.getUint32(8,true)!==b.byteLength)throw Error('GLB 格式或長度不符');
+ shell.update('pass','三維外殼可下載 · '+Math.round(b.byteLength/1024)+' KB');}
+ catch(e){shell.update('fail',String(e.message||e));}
  const libs=item('3D 程式庫','pending','正在檢測 Three.js...');let three=null;const providers=window.__vendorLocal ? ['./vendor/three/build/three.module.js'] : ['https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js','https://unpkg.com/three@0.160.1/build/three.module.js'];
  for(const u of providers){try{const r=await fetch(u,{mode:'cors',signal:AbortSignal.timeout(7500)});if(!r.ok)throw Error('HTTP '+r.status);libs.update('pass',window.__vendorLocal?'本地 Three.js 模組可讀取':'可連線 '+new URL(u,location.href).hostname);three=u;break;}catch(e){libs.update('pending','主要來源無法連線，嘗試備援來源…')}}if(!three)libs.update('fail',window.__vendorLocal?'本地 Three.js 模組無法讀取：請檢查封裝檔案':'兩個程式來源都無法連線，正式網站可能無法顯示 3D 模型');
  const dec=item('Draco 解碼器','pending','檢查中');let decok=false;const dracoPaths=window.__vendorLocal ? ['./vendor/three/examples/jsm/libs/draco/'] : ['https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/libs/draco/','https://unpkg.com/three@0.160.1/examples/jsm/libs/draco/'];for(const domain of dracoPaths){try{const r=await fetch(domain+'draco_decoder.wasm',{signal:AbortSignal.timeout(7500)});if(!r.ok)throw Error('HTTP '+r.status);dec.update('pass','解碼器可下載 · '+(await r.arrayBuffer()).byteLength+' bytes');decok=true;break;}catch(e){}}if(!decok)dec.update('fail','無法取得 Draco WASM 解碼器；精細 GLB 可能無法顯示');
@@ -37,6 +60,6 @@ async function check(){results.replaceChildren();
   const hits=status.filter(Boolean).length;
   offline.update(hits===target.length?'pass':'pending',`${hits} / ${target.length} 個關鍵檔案已快取（首次使用必須連網完成載入）`);
  } catch(err){offline.update('pending','無法查詢快取：'+String(err.message||err));}
- const summary=item('總結',okFiles===6&&gl&&three&&decok?'pass':'fail',okFiles===6&&gl&&three&&decok?'基礎條件通過。仍需確認模型實際顯示與觸控手感。':'未通過全部條件。請保留畫面，不要把網站視為已驗收。');
+ const summary=item('總結',okFiles===6&&gl&&three&&decok&&releaseOk&&indexOk&&pulmOk?'pass':'fail',okFiles===6&&gl&&three&&decok&&releaseOk&&indexOk&&pulmOk?'基礎條件通過。仍需確認模型實際顯示與觸控手感。':'未通過全部條件。請保留畫面，不要把網站視為已驗收。');
 }
 document.querySelector('#run').onclick=check;check();</script></body></html>

@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>血液循環 3D｜發布完整性檢查 V0.57</title><style>
+body{font:16px/1.6 system-ui,-apple-system,sans-serif;color:#24465b;background:#eff6f9;margin:0;padding:24px}main{max-width:800px;margin:auto}h1{font-size:1.45rem}section{background:white;border:1px solid #d6e6ed;padding:18px;border-radius:14px;margin:16px 0}button,a{border:0;border-radius:10px;background:#15788c;color:#fff;text-decoration:none;padding:10px 16px;display:inline-block;cursor:pointer}#progress{font-variant-numeric:tabular-nums}#bad{white-space:pre-wrap;overflow-wrap:anywhere;color:#aa2929;font-size:.88rem}#success{color:#16744a;font-weight:600}small{color:#5a7889}</style></head><body><main><h1>3D 血液循環｜發布完整性檢查 V0.57</h1><p>檢查 GitHub Pages 是否完整發布新版程式、血管模型、Three.js、Draco 及離線資源。此頁不會上傳任何資料。</p><a href="./index.html">返回 3D 網站</a> <button id="go">重新檢測</button><section><div id="progress">待檢測…</div><p id="success"></p><pre id="bad"></pre></section><small>本頁只檢查檔案內容與版本，不等於實體 iPad 或 WebGL 畫面驗收。</small></main><script type="module">
+const expected='V0.57',progress=document.querySelector('#progress'),bad=document.querySelector('#bad'),success=document.querySelector('#success');
+const h=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');
+async function run(){bad.textContent='';success.textContent='';progress.textContent='正在檢查版本…';document.querySelector('#go').disabled=true;
+ try{const stamp=Date.now(),mr=await fetch('./asset-manifest.json?integrity='+stamp,{cache:'no-store'});
+  if(!mr.ok)throw Error('版本清單 HTTP '+mr.status);
+  const m=await mr.json();if(m.version!==expected)throw Error('目前發布 '+m.version+'，但此檢查頁預期 '+expected+'。請確認 Pages 部署來源與版本。');
+  const entries=Object.entries(m.files||{}).filter(([path])=>path!=='.nojekyll');if(entries.length<45)throw Error('版本清單檔案過少：'+entries.length);
+  let at=0;const failures=[];const queue=[...entries];
+  async function worker(){while(queue.length){const [path,meta]=queue.shift();try{const res=await fetch('./'+path+'?integrity='+stamp,{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const bytes=await res.arrayBuffer();if(bytes.byteLength!==meta.bytes)throw Error('檔案大小錯誤');if(await h(bytes)!==meta.sha256)throw Error('SHA-256 不吻合');}catch(e){failures.push(path+'：'+(e.message||e));}at++;progress.textContent='版本 '+m.version+' · 完整性檢查 '+at+'/'+entries.length+' 檔案';}}
+  await Promise.all(Array.from({length:3},worker));
+  if(failures.length){bad.textContent='以下檔案尚未正確發布：\n'+failures.join('\n');progress.textContent+=' · '+failures.length+' 項失敗';}
+  else success.textContent='發布包一致：'+entries.length+' 個檔案 SHA-256 全數吻合。請再開啟正式網站檢查 3D 畫面。';
+ }catch(e){bad.textContent='檢查中止：'+(e.message||e);}finally{document.querySelector('#go').disabled=false;}}
+document.querySelector('#go').onclick=run;run();</script></body></html>

@@ -4,13 +4,13 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1"/>
 <meta name="theme-color" content="#eef6fa"/>
-<title>3D 血液循環｜體循環整合工程版 V0.47</title>
+<title>3D 血液循環｜模型中心線整合版 V0.57</title>
 <link rel="stylesheet" href="./style.css"/>
 <script src="./vendor-config.js"></script>
 <script>
 // Local libraries are preferred only after the verified vendor build is present.
 window.__vendorMode = window.__vendorLocal ? 'local' : 'cdn';
-window.__viewerDiagnostics={version:'V0.47',modelsLoaded:0,error:null};
+window.__viewerDiagnostics={version:'V0.57',modelsLoaded:0,error:null};
 const alt = new URLSearchParams(location.search).get('cdn') === 'unpkg';
 window.__threeCdn = alt ? 'https://unpkg.com/three@0.160.1/' : 'https://cdn.jsdelivr.net/npm/three@0.160.1/';
 const base = window.__vendorLocal ? './vendor/three/' : window.__threeCdn;
@@ -22,8 +22,9 @@ document.head.appendChild(im);
 <body>
 <div id="app" class="app">
   <main class="scene" id="scene" aria-label="人體血管三維模型操作區">
-    <div class="sceneTop"><div class="brand"><span class="brand-mark">◉</span><span>3D 血液循環<small>精細血管 · V0.47 體循環整合</small></span></div><div class="sceneActions"><button id="organBtn" class="organToggle" type="button" aria-label="切換器官顯示狀態">器官：半透明</button><button class="round" id="toolBtn" aria-label="進階工具" aria-expanded="false">⚙</button></div></div>
-    <div id="view" class="view" aria-label="3D 模型：單指旋轉、雙指平移縮放"></div>
+    <div class="sceneTop"><div class="brand"><span class="brand-mark">◉</span><span>3D 血液循環<small>立體血管 · V0.57</small></span></div><div class="sceneActions"><button id="organBtn" class="organToggle" type="button" aria-label="切換器官顯示狀態">器官：半透明</button><button class="round" id="toolBtn" aria-label="進階工具" aria-expanded="false">⚙</button></div></div>
+    <div id="view" class="view" aria-label="3D 模型：單指旋轉、雙指平移與縮放"></div>
+    <button id="resetBtn" class="sceneReset" type="button" aria-label="回到全身視角"><span aria-hidden="true">◎</span><span>全身</span></button>
     <div class="loading" id="loading" role="status"><div class="loadingIcon">◌</div><strong id="loadingTitle">準備解剖模型…</strong><div id="loadingDetail">正在初始化 3D 顯示</div><div class="loadingBar"><div id="loadingFill"></div></div><button id="retry" hidden>改用備援連線重新載入</button><a href="./diagnostics.html" class="loadingHelp">檢查模型與瀏覽器環境</a></div>
     <div class="organLabels" id="organLabels" hidden aria-hidden="true"><span class="organLabel" data-organ="right">右肺</span><span class="organLabel organLabelHeart" data-organ="heart">心臟</span><span class="organLabel" data-organ="left">左肺</span></div>
     <div class="infoTag" id="infoTag" hidden></div>
@@ -34,24 +35,29 @@ document.head.appendChild(im);
   <aside class="dock" id="dock">
     <div class="dockTitle">血管探索 <span class="dockHint">單指旋轉 · 雙指平移／縮放</span></div>
     <button class="mainbtn" id="layerBtn"><span class="btnIcon">▱</span><span>過濾血管<small id="layerStatus">完整 · 全部構造</small></span></button>
-    <button class="mainbtn" id="routeBtn"><span class="btnIcon">⌁</span><span>路徑探索<small>A → B</small></span></button>
-    <button class="mainbtn" id="resetBtn"><span class="btnIcon">◎</span><span>回到全身<small>視角重置</small></span></button>
+    <button class="mainbtn" id="routeBtn"><span class="btnIcon">⌁</span><span>血流路徑<small>A → B</small></span></button>
+    
     <section id="routePanel" class="routePanel" hidden>
-      <div class="panelTitle"><strong>血流路徑探索</strong><button id="closeRoute" aria-label="關閉路徑">✕</button></div>
-      <div class="routeGrid"><label>起點 A<select id="from"></select></label><label>終點 B<select id="to"></select></label></div>
-      <button class="action" id="calculate">找出路徑</button>
-      <div class="verifiedRow"><label for="demoPick">真實中心線／心肺與體循環導覽</label><div class="verifiedPick"><select id="demoPick"><option value="right-pulmonary-exchange">心肺交換（四心腔＋肺泡換氣示意）</option><option value="left-arm-systemic-return">體循環示範（心臟 → 左手臂 → 回右心）</option><option value="left-arm-artery">左臂動脈</option><option value="left-arm-vein">左臂靜脈</option><option value="right-arm-artery">右臂動脈</option><option value="right-arm-vein">右臂靜脈</option><option value="left-leg-artery-proximal">左腿動脈（至膕動脈）</option><option value="left-leg-vein">左腿靜脈（往下腔靜脈）</option></select><button id="playDemo" type="button">▶ 播放</button></div></div>
-      <div id="routeResult" class="routeResult" role="status">路徑計算後，可逐站檢視已對應的血管。</div>
-      <div id="routeAssist" class="routeAssist" hidden><span id="routeAssistText">此路徑可改用代表性動畫呈現。</span><button class="action secondary" id="playSuggested" type="button">播放支援動畫</button></div>
-      <div class="player" id="player" hidden><button id="prev" aria-label="上一站">◀</button><button id="next" aria-label="下一站">▶</button><button id="toggleFlow" type="button" hidden aria-label="暫停或繼續血流">⏸ 暫停</button><span id="routeIndex">—</span></div>
-      <details class="modelNotes"><summary>模型與示意說明</summary><p class="limitation">心臟與左右肺外形屬國中教學簡化定位層，不代表真實器官掃描；可使用右上角「器官」切換半透明、實體或隱藏。A→B 任意路徑仍採逐站探索；連續光點僅沿通過幾何驗證的管狀血管播放；複雜肺動脈分叉改為保留左右肺的 Y 型管道；心腔及微血管以明確標示的示意模型銜接；肺部換氣由藍轉紅，手臂組織交換由紅轉藍。示意部分不代表精確器官位置或血管管腔。心肺示範的半透明模式會讓正在追蹤的重點血管優先顯示在器官外殼前，這是視覺引導，不代表血管真實位於器官表面或穿出器官。黃色標記為放大的教學光點，非血球實際比例。</p></details>
+      <div class="panelTitle"><strong>血流路徑</strong><button id="closeRoute" aria-label="關閉路徑">✕</button></div>
+      <div class="routeGrid">
+        <label><span>A 起點</span><select id="from" aria-label="A 起點"></select></label>
+        <span class="routeArrow" aria-hidden="true">→</span>
+        <label><span>B 終點</span><select id="to" aria-label="B 終點"></select></label>
+      </div>
+      <div class="routeActions"><button class="action" id="calculate" type="button">▶ 播放血流</button><button id="routeClear" class="routeClear" type="button" aria-label="重選起點終點">↺ 重選</button></div><div id="routeNote" class="routeNote" aria-live="polite"></div>
+      <div class="player" id="player" hidden>
+        <button id="prev" hidden aria-label="上一站">◀</button><button id="next" hidden aria-label="下一站">▶</button>
+        <button id="toggleFlow" type="button" aria-label="暫停或繼續血流">⏸ 暫停</button>
+        <span id="routeIndex" aria-live="off">—</span>
+      </div>
+      <div id="routeResult" hidden></div><div id="routeAssist" hidden><span id="routeAssistText"></span></div>
     </section>
   </aside>
   <div class="shade" id="shade" hidden></div>
   <section class="tools" id="tools" aria-label="進階工具" hidden>
     <div class="panelTitle"><strong>觀察工具</strong><button id="closeTools">✕</button></div>
     <div class="toolLine"><span>顯示內容</span><div class="chips"><button id="allVessels" class="active">動靜脈</button><button id="arteriesOnly">動脈</button><button id="veinsOnly">靜脈</button></div></div>
-    <div class="toolLine"><span>血管搜尋</span><input id="search" placeholder="輸入英文血管名稱…" autocomplete="off"/><div id="searchList" class="searchList"></div></div>
+    <div class="toolLine"><span>血管搜尋</span><input id="search" placeholder="搜尋構造（進階）…" autocomplete="off"/><div id="searchList" class="searchList"></div></div>
     <div class="toolLine"><span>一鍵轉到</span><div class="chips"><button data-view="front">正面</button><button data-view="back">背面</button><button data-view="left">左側</button><button data-view="right">右側</button></div></div>
     <div class="toolLine"><span>環境檢測</span><a class="legacy" href="./diagnostics.html">執行模型與瀏覽器驗收</a></div>
     <div class="toolLine"><span>額外資訊</span><div id="diagnostics" class="diagnostics">等待模型分析…</div></div>
@@ -89,13 +95,32 @@ document.head.appendChild(im);
     // Register before requesting models or runtime modules. No second copy of GLBs is downloaded.
     if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost' || location.hostname==='127.0.0.1')) {
       try {
-        await navigator.serviceWorker.register('./sw.js');
-        await Promise.race([navigator.serviceWorker.ready, new Promise((_,reject)=>setTimeout(()=>reject(new Error('SW timeout')),3200))]);
-        if(!navigator.serviceWorker.controller) {
-          await Promise.race([
-            new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true})),
-            new Promise(resolve=>setTimeout(resolve,1400))
-          ]);
+        const before=navigator.serviceWorker.controller;
+        const registration=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});
+        // Do not treat a stale controller as the current build after GitHub Pages publishes a new ZIP.
+        // This asks the browser to check the worker now, not at its usual periodic interval.
+        try { await Promise.race([registration.update(),new Promise((_,reject)=>setTimeout(()=>reject(Error('SW update timeout')),3500))]); }
+        catch(err){console.info('SW update not confirmed; continue with online fallback',err);}
+        await Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('SW ready timeout')),3200))]);
+        if(!navigator.serviceWorker.controller)await Promise.race([
+          new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true})),
+          new Promise(resolve=>setTimeout(resolve,1400))
+        ]);
+        if(before&&before!==navigator.serviceWorker.controller){
+          // A new worker took control while the old HTML scripts were loading.
+          // One reload is necessary to ensure every local module is from the same release.
+          let already=false;try{already=sessionStorage.getItem('blood3d-v057-sw-reload')==='1';}catch{}
+          if(!already){try{sessionStorage.setItem('blood3d-v057-sw-reload','1');}catch{}
+            location.reload();return;}
+        }
+        if(navigator.serviceWorker.controller){
+          const workerVersion=await new Promise(resolve=>{
+            const ch=new MessageChannel();const timer=setTimeout(()=>{ch.port1.close();resolve(null)},520);
+            ch.port1.onmessage=e=>{clearTimeout(timer);ch.port1.close();resolve(e.data?.version||null)};
+            try{navigator.serviceWorker.controller.postMessage({type:'BLOOD3D_VERSION'},[ch.port2]);}
+            catch{clearTimeout(timer);resolve(null);}
+          });
+          if(workerVersion&&workerVersion!=='V0.57')console.warn('Different service worker release:',workerVersion);
         }
       } catch(err) { console.warn('Cache unavailable; continuing online',err); }
     }
@@ -114,5 +139,6 @@ document.head.appendChild(im);
   bootViewer();
 </script>
 <!-- viewer.js is added once by bootViewer() after the runtime check -->
+<script src="home-button.js"></script>
 </body>
 </html>

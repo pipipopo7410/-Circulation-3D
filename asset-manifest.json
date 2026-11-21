@@ -1,74 +1,118 @@
 {
-  "version": "V0.47",
-  "purpose": "manual QA candidate; NOT auto-deployed",
+  "version": "V0.57",
+  "purpose": "GitHub Pages release candidate; WEBGL and iPad Safari still pending",
   "files": {
-    "index.html": {
-      "bytes": 10282,
-      "sha256": "a69876b0bac06ba28c2e240768ba6a325182875cfedc2181843530d4feb3f3d0"
-    },
-    "style.css": {
-      "bytes": 12854,
-      "sha256": "3ad0bc32fd170f2e5221f0f76b86df23f936c743340973a7f8eb748b9fe15f1a"
-    },
-    "sw.js": {
-      "bytes": 1844,
-      "sha256": "43159551389c7bc4eae605eefdb1ba05957dcf90d71f4aa2dea180b4d48de651"
-    },
-    "vendor-config.js": {
-      "bytes": 93,
-      "sha256": "3ebab1bc40dc92cef641a022ae6a7fb2d9e95e725030e4c6fd104d7db9d4513c"
-    },
-    "diagnostics.html": {
-      "bytes": 6160,
-      "sha256": "dbd2d0be4037ccb31fca6179e196b38ccc193776e7dbd59a4a7e6e90002a4e3c"
+    ".nojekyll": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "ATTRIBUTION.md": {
       "bytes": 1551,
       "sha256": "a6ede7a1ed37d3d1debac3d5a3d467bdc0860a7b8729eeb71a82ffb4cb2fc979"
     },
-    "js/viewer.js": {
-      "bytes": 52315,
-      "sha256": "5687bfeae95582ddb8a932ca3eb6d7cd21b282b96b3bac24e327b16417a837c0"
+    "README.md": {
+      "bytes": 5878,
+      "sha256": "91995f1133c99498b8b211d9febcfe46dd5d08c89f89b713cfaa82406e250cb5"
+    },
+    "diagnostics.html": {
+      "bytes": 8373,
+      "sha256": "c289e16e5fadb043e23864876c2003d5ae616a942bdd04118b6ef83f65b35ef2"
+    },
+    "home-button.js": {
+      "bytes": 5238,
+      "sha256": "82d225c8b8a40786e8ed4bc92d32bdab1c5831a1eef722f808aa9895c0d78a7e"
+    },
+    "index.html": {
+      "bytes": 10496,
+      "sha256": "50fc4946e3b4c1b3fa97b42e50d971618222af38648779e64bca77be051e8e17"
+    },
+    "js/anatomical-organ-routes.mjs": {
+      "bytes": 12194,
+      "sha256": "0ea96b43c84d1345bbc86f73d6c79596b60e333c8ac268df72a11e6a8e0771b4"
+    },
+    "js/body-context.mjs": {
+      "bytes": 3206,
+      "sha256": "8bf7e574071b057be2d7c11b81d96acefb7ce998ff625ae2cef2c1b961bbcfd9"
+    },
+    "js/camera-limits.mjs": {
+      "bytes": 2934,
+      "sha256": "b12236428a54466752c7e1d930a93ab9f0c12919e0dda17a201f6925559ba2d6"
+    },
+    "js/classroom-input.mjs": {
+      "bytes": 3337,
+      "sha256": "5e3ce8f26f2f3c3811323cefdbf013583177f6ae9d1f72a9ccd7104e9f8ee509"
+    },
+    "js/directed-blood-network.mjs": {
+      "bytes": 13026,
+      "sha256": "51a1d40b4f73d5dee20c5d171f45383e4333dbdfbba501e0fd8e722e70335e6a"
     },
     "js/flow-timeline.mjs": {
       "bytes": 2419,
       "sha256": "34d9e275d075fe5b1b2a0ce84ee0d7f04403f630b7ae09dc1e23e158135baed3"
     },
-    "js/camera-limits.mjs": {
-      "bytes": 2934,
-      "sha256": "2a319d0d2b24ec7c82bce75fcd0b43022c9e8495e2a9eae1ca66253deb447230"
+    "js/graph-engine.js": {
+      "bytes": 8321,
+      "sha256": "988089970195f19f40be3773ccacfc9e21ab05603d83fdb921099e02df5e364e"
     },
-    "js/organ-shells.mjs": {
-      "bytes": 6776,
-      "sha256": "6846e23dc66f2ad7dc75ecafb7a7fd84fadd5df59e7a5567363d8e8b448c42c6"
-    },
-    "js/organ-shapes.mjs": {
-      "bytes": 5188,
-      "sha256": "a336719af6d5041210336aa21ae0baa0a59ed849d3fcab4ac01d44f89ac7b790"
-    },
-    "js/organ-label-layout.mjs": {
-      "bytes": 1107,
-      "sha256": "589100121f5d5ba0225cd165d3d29af3d0807ae53479e039d0d3a2c4b0941eef"
-    },
-    "js/view-framing.mjs": {
-      "bytes": 2665,
-      "sha256": "1a7aad09bb97ac524e452c08dc66842008f215cb42a4fb001018ddbd963cca36"
+    "js/lesson-route-visibility.mjs": {
+      "bytes": 1380,
+      "sha256": "a4bf0b8f43fb22d1ca3ef1470c656dfeb837afd80eaea54b662a001497557ad4"
     },
     "js/lesson-visibility.mjs": {
       "bytes": 622,
       "sha256": "9dcb14d6f02086c7bd784b957a0a6ebb1d17a1e861e8d057c8c84ac4e549c3d9"
     },
-    "js/classroom-input.mjs": {
-      "bytes": 3337,
-      "sha256": "9e4373cf46df819b309413b5381e95cfc197a3f43143d3973947164704379f9d"
+    "js/organ-label-layout.mjs": {
+      "bytes": 1107,
+      "sha256": "589100121f5d5ba0225cd165d3d29af3d0807ae53479e039d0d3a2c4b0941eef"
     },
-    "js/graph-engine.js": {
-      "bytes": 8321,
-      "sha256": "988089970195f19f40be3773ccacfc9e21ab05603d83fdb921099e02df5e364e"
+    "js/organ-shapes.mjs": {
+      "bytes": 5188,
+      "sha256": "a336719af6d5041210336aa21ae0baa0a59ed849d3fcab4ac01d44f89ac7b790"
     },
-    "vendor-manifest.json": {
-      "bytes": 1853,
-      "sha256": "0051f1cee3b54a75f9e2e7deb18c10240db26c264a4ab99e7220ea6eb0b70389"
+    "js/organ-shells.mjs": {
+      "bytes": 6776,
+      "sha256": "6846e23dc66f2ad7dc75ecafb7a7fd84fadd5df59e7a5567363d8e8b448c42c6"
+    },
+    "js/pulmonary-network.mjs": {
+      "bytes": 6140,
+      "sha256": "4dafc777f9e98909013b4e6d7470f266884313107548de4d79943b0091be7e90"
+    },
+    "js/region-routes.mjs": {
+      "bytes": 294,
+      "sha256": "bae29498752f5497680377311f0e6fdca2bd0f4e2cc2b1a53b6e9e140fa1d80e"
+    },
+    "js/view-framing.mjs": {
+      "bytes": 2665,
+      "sha256": "1a7aad09bb97ac524e452c08dc66842008f215cb42a4fb001018ddbd963cca36"
+    },
+    "js/viewer.js": {
+      "bytes": 59915,
+      "sha256": "0ea668aa648a98a9687be743de689c5cafac496a7e02aa87c8bbf878097ecbff"
+    },
+    "models/arteries-core-only.glb": {
+      "bytes": 84796,
+      "sha256": "f142370d16fd12ef18d416db4587a969fe689f66026cc18169c2b0343834cdef"
+    },
+    "models/arteries-fine-extra.glb": {
+      "bytes": 1273836,
+      "sha256": "71033ea68c31baec8838d1155ff6df6f7c17883e51c4547838706fadc94cbfc6"
+    },
+    "models/arteries-main-extra.glb": {
+      "bytes": 223236,
+      "sha256": "816643dd7c43ec25b67a22d994f92074bb496ffcd5467e128baf1d193bb48c67"
+    },
+    "models/cardiopulmonary-stages.json": {
+      "bytes": 49960,
+      "sha256": "a8246f14f4a266feeb9939bdd081f6848d9b77b22b1716bb898f7c2a23b5d5b1"
+    },
+    "models/human-body-context.glb": {
+      "bytes": 1255704,
+      "sha256": "51744308b537009c422adf063409caa5c147e42828e2c85168f5e14f1b066361"
+    },
+    "models/mesh-centerlines-v054.json": {
+      "bytes": 35883,
+      "sha256": "72d402cb0db471d21cde7683ff60211c16a42f0e3264e049197098ae5e724c2b"
     },
     "models/mesh-levels.json": {
       "bytes": 63600,
@@ -78,41 +122,77 @@
       "bytes": 1482,
       "sha256": "ec695fdb575af0233ae480edd08b6ad08961299a305ad95e61b79ef2effc7288"
     },
-    "models/verified-paths.json": {
-      "bytes": 29230,
-      "sha256": "fd67b463307d5587dced839d5891e5471f87ad7400a7dd654d61f717737bd6c8"
-    },
-    "models/cardiopulmonary-stages.json": {
-      "bytes": 49960,
-      "sha256": "a8246f14f4a266feeb9939bdd081f6848d9b77b22b1716bb898f7c2a23b5d5b1"
+    "models/pulmonary-mesh-centerlines-v055.json": {
+      "bytes": 3432,
+      "sha256": "61b159f181897f94e3c4d4be699fe25f9c502c7a2f63edfad47f9057a3a33037"
     },
     "models/systemic-left-arm-stages.json": {
       "bytes": 20609,
       "sha256": "6b79b59277fc3b72f6f7740fd47dad1b0d649ee7d11555114038781ad52a313d"
     },
-    "models/arteries-core-only.glb": {
-      "bytes": 84796,
-      "sha256": "f142370d16fd12ef18d416db4587a969fe689f66026cc18169c2b0343834cdef"
-    },
-    "models/arteries-main-extra.glb": {
-      "bytes": 223236,
-      "sha256": "816643dd7c43ec25b67a22d994f92074bb496ffcd5467e128baf1d193bb48c67"
-    },
-    "models/arteries-fine-extra.glb": {
-      "bytes": 1273836,
-      "sha256": "71033ea68c31baec8838d1155ff6df6f7c17883e51c4547838706fadc94cbfc6"
-    },
     "models/veins-core-only.glb": {
       "bytes": 92516,
       "sha256": "da17cddede83fa12133b3eb3146b8a86843ee24ea3e1313d4713f4737b6a405e"
+    },
+    "models/veins-fine-extra.glb": {
+      "bytes": 709720,
+      "sha256": "c3c1202abf31309cbd8483ba746297de111f320fccd23e2b1dc3f9f8343e0bd7"
     },
     "models/veins-main-extra.glb": {
       "bytes": 238104,
       "sha256": "48c9074cb4d4742ad3fc0c2865b6691598d28e9bf8febb21a1bfbc4394607808"
     },
-    "models/veins-fine-extra.glb": {
-      "bytes": 709720,
-      "sha256": "c3c1202abf31309cbd8483ba746297de111f320fccd23e2b1dc3f9f8343e0bd7"
+    "models/verified-paths.json": {
+      "bytes": 29230,
+      "sha256": "fd67b463307d5587dced839d5891e5471f87ad7400a7dd654d61f717737bd6c8"
+    },
+    "qa/extract_blood_meshes.cjs": {
+      "bytes": 2177,
+      "sha256": "e891dcc2c73145eaf3089c8c1ff7a1feda05a6093b18732bb9adfb8aa89d3944"
+    },
+    "qa/extract_center_v054.py": {
+      "bytes": 3710,
+      "sha256": "c556af7fc63427122d691a09fdd0be3c3a61476a7956a5cfc112544e3bb9ef16"
+    },
+    "qa/qa-report-v054.json": {
+      "bytes": 419,
+      "sha256": "e9d5c7173876df1fa4db805ad6c60e627eb058390f0a18746e536431e52ba9c9"
+    },
+    "qa/qa-report-v055.json": {
+      "bytes": 418,
+      "sha256": "b08919a5e9882307d49263c3b9d365f9a6a5de431c0934f2dc829060981fbfe9"
+    },
+    "qa/qa-report-v056.json": {
+      "bytes": 241,
+      "sha256": "879d8b14cc537ae467098b46c6a73820e404420c16416f61b55a27bf59974abf"
+    },
+    "qa/verify-v054.mjs": {
+      "bytes": 7918,
+      "sha256": "2acbc330c1ba3bee2da1ae12c27ada7e1e148d9e2ef3e8a67abe431b7adde1fd"
+    },
+    "qa/verify-v055.mjs": {
+      "bytes": 10586,
+      "sha256": "ef5475ad2a06fb6c0cbf3e9ad8ff82b5b37d1efede685826b448524330053afd"
+    },
+    "qa/verify-v056.mjs": {
+      "bytes": 5562,
+      "sha256": "79035b0084d72ea6b8905e5197fc5ae7a4acb018a58ff8340e2bd2314d6d88ba"
+    },
+    "qa/verify-v057.mjs": {
+      "bytes": 2166,
+      "sha256": "44755bdbccf0a084c4f907a3f896da3920f10d9e1073d7861d5c5f9dd7415a41"
+    },
+    "release-check.html": {
+      "bytes": 3368,
+      "sha256": "444925cac47c1bc608358ccac6aa1ec0a43b31e5b709f466531e624d20848da3"
+    },
+    "style.css": {
+      "bytes": 16555,
+      "sha256": "2811d406424f75a84f8acf27bc530f6600e0bb4b0d1ce6559f631ac074e0104e"
+    },
+    "sw.js": {
+      "bytes": 2527,
+      "sha256": "1ce4f9be49ff0cb474d765dcd6ca6e7cf86ee2a6658538a6726d875d1209c482"
     },
     "vendor/three/LICENSE": {
       "bytes": 1081,
@@ -153,7 +233,35 @@
     "vendor/three/examples/jsm/utils/BufferGeometryUtils.js": {
       "bytes": 31906,
       "sha256": "9be041e96308775d00e2695cc607645b9a9b64fd7c0e759dd8f7c00a8d92becb"
+    },
+    "vendor-config.js": {
+      "bytes": 93,
+      "sha256": "3ebab1bc40dc92cef641a022ae6a7fb2d9e95e725030e4c6fd104d7db9d4513c"
+    },
+    "vendor-manifest.json": {
+      "bytes": 1853,
+      "sha256": "0051f1cee3b54a75f9e2e7deb18c10240db26c264a4ab99e7220ea6eb0b70389"
     }
   },
-  "totalRuntimeBytes": 5422349
+  "sourceRelease": "V0.56",
+  "protectedSourceModels": [
+    "js/directed-blood-network.mjs",
+    "js/pulmonary-network.mjs",
+    "js/anatomical-organ-routes.mjs",
+    "js/region-routes.mjs",
+    "js/flow-timeline.mjs",
+    "js/lesson-route-visibility.mjs",
+    "models/arteries-core-only.glb",
+    "models/arteries-main-extra.glb",
+    "models/arteries-fine-extra.glb",
+    "models/veins-core-only.glb",
+    "models/veins-main-extra.glb",
+    "models/veins-fine-extra.glb",
+    "models/human-body-context.glb",
+    "models/verified-paths.json",
+    "models/pulmonary-mesh-centerlines-v055.json",
+    "models/mesh-centerlines-v054.json"
+  ],
+  "neverAutoConnectUnapprovedVessels": true,
+  "runtimeIntegrityPage": "release-check.html"
 }

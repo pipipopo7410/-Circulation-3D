@@ -1,32 +1,71 @@
-# Circulation 3D · 血液循環 3D 教學網站（V0.47）
+# V0.57｜發布一致性與瀏覽器驗收準備版
 
-這份為 **V0.47 GitHub 自動測試通過的完整靜態網站**（從已通過測試的網站 ZIP 原封保留所有網站資產），可直接部署 GitHub Pages，無需 npm、Three.js 另行下載或編譯。
+基於 V0.56 的完整工程，**沒有修改血管中心線、心肺資料、有向路網、人體外殼及動畫界面**。
 
-## 這份壓縮檔怎麼用？
+本輪改進：
+- 使用 `Circulation-3D-v0.57-GitHub-Pages.zip` 正式發布命名，符合先前 `deploy-site.yml` 的自動選版規則；工程檢查點改用此命名，不再讓 GitHub 誤選 v0.52。
+- 在 Service Worker 加入 `BLOOD3D_VERSION` 版本回應、啟動時確認更新，降低新 HTML 混用舊 JS 的風險。
+- 新增 `release-check.html`，可直接透過 Pages 網址逐檔比對 `asset-manifest.json` 的大小與 SHA-256，辨識錯誤版本、404、503、舊檔與漏傳的 vendor/model 資源。
+- diagnostics.html 顯示預期 V0.57 並提供完整發布檢查入口。
+- `qa/verify-v057.mjs` 驗證全部 A→B 路網、資源完整性、啟動與離線版本綁定，避免推進錯誤版本。
 
-1. **先解壓縮 ZIP**，不是把 ZIP 本身上傳 GitHub。
-2. 登入 GitHub，選 **New repository**，建議名稱 `Circulation-3D`，選 **Public**，**不要勾選 `Add a README file`**（壓縮包已附 README）。
-3. 建立後進入 **Code → Add file → Upload files**。
-4. 將解壓縮後看到的 **所有檔案和資料夾**上傳到倉庫根目錄：`index.html`、`style.css`、`js/`、`models/`、`vendor/`、`sw.js`、`asset-manifest.json` 等，最後按 **Commit changes**。
-5. 進入 **Settings → Pages**，Source 選 **Deploy from a branch**，Branch 選 `main`，資料夾選 `/(root)`，按 **Save**。
-6. Pages 完成部署後，若倉庫名稱是 `Circulation-3D`，網址通常為：
-   `https://pipipopo7410.github.io/Circulation-3D/`
-   （以 GitHub Pages 顯示的實際網址為準）。
+**驗收限制：** 本地 Chromium 對 localhost 回傳 `ERR_BLOCKED_BY_ADMINISTRATOR`，無法在此環境完成真實 WebGL；須使用可正常開啟網站的瀏覽器和 iPad 實機驗收。
 
-## 上傳前一定要確認
+**本檔可以供 GitHub Pages 自動部署，但尚未上傳到使用者的 GitHub。** 不要把程式檢查視為 WebGL 及教室驗收。
 
-- GitHub 倉庫首頁最上層**直接看得到 `index.html`**（不能藏在 `Circulation-3D-v0.47-GitHub-Pages/` 資料夾內）。
-- `js`、`models`、`vendor` 三個資料夾都在根目錄，且內部檔案完整。
-- **不能只上傳 ZIP 檔**，因為 GitHub Pages 不會自動解壓縮 ZIP。
-- 此為新建立的**公開教師預覽網站**，不要覆蓋先前的 `bloodtest` 私人 QA 倉庫或其他正式教學網站。
+# 血液循環 3D｜V0.57 整合驗證檢查點
 
-## 已有功能與測試邊界
+沿用 V0.53 已驗證的有向路網，**不變更既有 3D 血管 GLB、外觀、A→B 操作、縮放限制或教學介面**。
 
-- 真實血管 GLB 3D、三級可見度 643／159／68、心臟及左右肺簡化外形（三種透明模式）、心肺與體循環各十站動畫、A→B 路徑探索、縮放保護、相機視角恢復。
-- GitHub QA（V0.47）已通過自動測試；**教師操作體驗與實體 iPad Safari 尚待驗收**。
-- 初次使用時請連上網路，讓網站載入必要檔案；網頁內建離線快取，但設備是否能離線使用仍需實機確認。
-- 原始模型與外部程式庫的來源及授權詳見 `ATTRIBUTION.md` 與 `vendor/three/LICENSE`。
+## V0.57 本輪整合改善
+- 修復 A→B 播放會強制顯示核心層時，正在播放的肺段／腎／下肢真實細層 GLB 血管仍被隱藏的問題；播放時強制顯示目前血管與相鄰銜接血管，離開播放後恢復原本教師篩選狀態。**不修改血管 GLB**。
+- 路徑引導線不再跟黃點同為亮黃色，依高／低含氧改以紅／藍色示意；黃色光點維持單顆不透明球。
+- 增加 `js/lesson-route-visibility.mjs` 純函式與 `qa/verify-v056.mjs`，檢查全部 64 個 A→B 組合中，每段可見血管都能跨分層正確顯示、接點與動畫終點連續。
+- 保留 V0.55 所有 3D 人體、心肺、原有 A→B、三級血管模型、鏡頭、iPad 手勢與返回首頁按鈕。
+- 此版仍是**工程檢查點**；真實 WebGL、iPad Safari 及正式課堂使用仍待驗收，未經部署。
 
-## 完整性
+## V0.55 既有肺部資料與成果（保留）
 
-`asset-manifest.json` 是 **原本通過 GitHub 自動驗證的 38 份網站資源**清單。所有原網站資源均未修改，另外新增本 README.md 與空白 `.nojekyll`，不影響既有驗證過的程式。
+- 原始 GLB 的右肺中葉動脈、外側肺段動脈及外側靜脈已解碼後估計中心線，改由這 3 條具名血管控制黃點位置。
+- 經由 Right superior pulmonary vein 的 V0.54 原始模型估算中心線回流，僅於核准的短接點和肺內微血管處保留示意。
+- 肺內全程走右肺單側中葉，左右肺不是串聯。左肺仍保留虛線示意，不宣稱使用了本次的實際解剖路徑。
+- 64 種 A→B 和 8 個 A=B 週期改由同一肺內路線引擎驅動。
+- 新增 `models/pulmonary-mesh-centerlines-v055.json`，含具名來源、幾何品質與原始模型 SHA-256。
+- 本地資料驗證新增：肺內三支具名模型是否真有載入、四處接點距離門檻、故意修改接點必須拒絕，以及 64 種循環播放。
+
+## V0.54 已保留的工作
+
+- 從六份既有原始血管模型中的四份（核心動靜脈與主要動靜脈），解碼指定具名稱的 30 個血管構造，計算血管管壁頂點的保守中心軌跡。**這是 3D 模型導出的中心估算，並非醫師逐點驗證的真實血管腔中心**。
+- 新增 `models/mesh-centerlines-v054.json` 與 `js/anatomical-organ-routes.mjs`。將頭部（頸動／頸靜脈）、右腎（腎動／腎靜脈＋大血管）、右下肢（髂、股、膕、脛動靜脈）連接到有向路網。
+- 保留原有心肺路線的已驗證主肺動脈與肺靜脈，仍以明示的肺內教學路徑處理缺少精確微血管中心線的段落；不把兩肺當成串聯路徑。
+- 只有已核准且具最大誤差門檻的接點才能銜接，不允許臨時將兩根血管最近點直連。不可用模型段仍須保留明確的教學示意註記。
+- 64 種器官 A→B（含 8 種同起終點）仍由共用 15 條有方向的路網邊自動組合，並按實際路段長度控制黃色光點在各段的播放時間；不是生理流速模擬。
+- 納入原先定稿的 `home-button.js`；新增模組、模型中心線資料加入離線快取。
+
+## 實際來源與限制
+
+- `kind:real` 但 `provenance.kind=mesh-derived-centreline`：由解碼後 GLB 管壁頂點按主軸分段估算中心（不代表原先專家核可的解剖中心線）。
+- `provenance.kind=decoded-centreline`：之前 V0.52 已核對的少數原始血管中心線。
+- `provenance.kind=educational-schematic`：微血管交換、模型末端延伸、核准接點（全部明示）。
+- 新路線的真實視覺效果尚未在 GitHub Pages / iPad Safari 驗收，先不要把此檢查點當正式課堂版。
+
+## 本地驗證
+
+```bash
+node qa/verify-v055.mjs
+```
+
+此測試同時核對 V0.55 右肺具名血管中心線與接點、新增肺部模型來源 SHA-256，並核對既有模型來源檔案的 SHA-256、GLB 內具名血管是否存在、抽樣軌跡是否落在來源網格包圍盒中、沿線最大跳點、全部 64 個組合接點與播放時間軸，以及故意破壞接點的四種反向測試。
+
+若需重建抽樣資料，原始工作流程為 `node qa/extract_blood_meshes.cjs` → `python qa/extract_center_v054.py`；Python 需要 `numpy` 和 `scipy`。首次執行會產生 `qa/decoded-selected-v054.json`（中間產物，不需發布）。
+
+## GitHub
+
+這輪是供下一階段繼續工作的完整網站檢查點，不需現在上傳；等路徑畫面及模型檢查一起完成後，再依既有自動部署流程集中驗收。
+
+## V0.57 本地整合檢驗
+```bash
+node qa/verify-v056.mjs
+```
+
+如本地瀏覽器封鎖 localhost，不能將程式測試等同真實 WebGL 或 iPad 渲染。

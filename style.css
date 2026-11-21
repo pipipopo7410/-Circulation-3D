@@ -64,3 +64,39 @@
 .modelNotes[open] .limitation{margin:5px 0 9px;line-height:1.6;}
 .organLabel.isActive{color:#80273d;background:#fff0f4f7;border-color:#bb6983;box-shadow:0 2px 10px #8b304333;}
 @media (max-width:430px) and (orientation:portrait){.organLabel.isActive{font-size:10px;}}
+
+/* V0.48 — classroom first. Full-body action is inside the 3D scene. */
+.sceneReset{position:absolute;z-index:6;right:18px;bottom:58px;display:flex;gap:7px;align-items:center;justify-content:center;min-height:46px;padding:10px 14px;border:1px solid #b7d7e0;border-radius:15px;background:#ffffffed;color:#176b7d;font-weight:850;font-size:13px;box-shadow:0 5px 18px #1a52632c;touch-action:manipulation}
+.sceneReset span:first-child{font-size:24px;line-height:.7}
+.dock{gap:11px}.routePanel{padding:9px}.routeGrid{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);align-items:end;gap:5px}.routeArrow{font-size:20px;text-align:center;color:#2b8da0;padding-bottom:7px}.routeGrid label{font-size:12px}.routeGrid select{font-size:12px;padding:9px 5px}
+.routePanel .routeResult{line-height:1.2;font-size:12px;padding:5px 1px;color:#265b74;background:transparent;border:0;min-height:0}
+.routePanel .routeResult:empty{display:none}.routePanel .routeAssist span:empty{display:none}.routePanel .routeAssist{padding:3px;border:0;background:transparent;justify-content:flex-end}.routePanel .routeAssist .action{min-width:95px}
+.verifiedRow{padding-top:8px}.verifiedRow>label{font-size:11px}.verifiedPick select{font-size:12px}
+.routePanel details.modelNotes{display:none}/* Advanced anatomical caveats remain in source documentation. */
+.sceneFoot #statusText{display:none}
+@media (orientation:portrait){.sceneReset{right:9px;bottom:46px;min-height:40px;padding:7px 10px}.dock{grid-template-columns:repeat(2,minmax(0,1fr));min-height:95px;max-height:52%}.routePanel{grid-column:span 2}.routeGrid{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr)}}
+@media(max-height:500px) and (orientation:landscape){.sceneReset{right:9px;bottom:31px;padding:6px 10px;min-height:36px}.dock{width:172px}}
+@media(max-width:430px) and (orientation:portrait){.sceneReset{right:8px;bottom:37px;min-height:36px;padding:5px 9px;font-size:12px}}
+
+/* V0.49 — simple A→B playback: no challenge, no text essay, no second playlist. */
+.routePanel #routeResult,.routePanel #routeAssist,.routePanel #prev,.routePanel #next{display:none!important}
+.routePanel .routeGrid{margin:9px 0 10px}
+.routePanel .routeGrid label span{display:block;margin-bottom:4px;font-size:11px;font-weight:800;color:#386878}
+.routePanel #calculate{margin-top:5px;font-size:14px;min-height:44px}
+.routePanel .player{justify-content:space-between;gap:8px;margin-top:9px}
+.routePanel #toggleFlow{font-size:13px;min-height:40px;padding:8px 14px;border:1px solid #bdd7e0;background:#eff8fa;border-radius:10px;color:#195e72;font-weight:800}
+.routePanel #routeIndex{font-size:11px;white-space:nowrap;color:#6c8494}
+@media(orientation:portrait){.routePanel{max-height:29dvh}.routePanel .routeGrid{margin:3px 0 6px}}
+
+/* V0.51: keep origin/destination editable before, during and after playback. */
+.routePanel .routeActions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch;gap:7px}
+.routePanel .routeActions #calculate{margin-top:4px;min-width:0}
+.routePanel .routeClear{margin-top:4px;padding:7px 10px;min-width:68px;border-radius:10px;border:1px solid #bcd9df;background:#f8fdff;color:#236a7b;font-size:12px;font-weight:750;cursor:pointer}
+.routePanel .routeGrid select{min-height:42px;touch-action:manipulation;pointer-events:auto;position:relative;z-index:2}
+.routePanel .routeNote{color:#658295;font-size:11px;line-height:1.45;min-height:0;margin-top:5px}
+.routePanel .routeNote:empty{display:none}
+@media(orientation:portrait){.routePanel .routeNote{font-size:10px}}
+
+/* V0.53: keep the main-scene Full Body button clear of the shared home icon. */
+.sceneReset{bottom:92px}
+@media(orientation:portrait){.sceneReset{bottom:92px}}
